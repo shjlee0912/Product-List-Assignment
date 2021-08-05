@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<title>Getting Started: Serving Web Content</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
+	<style>
+		table,
+		th,
+		td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		table {
+			width: 50%;
+		}
+
+		th {
+			background-color: tomato;
+			color: white;
+			text-align: center;
+			padding: 10px;
+		}
+
+		td {
+			text-align: center;
+			padding: 15px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f5f5f5;
+		}
+	</style>
+</head>
+
+<body>
+	<a href="/logout"><button type="button">Logout</button></a>
+	<div align="center">
+		<h2>List of all products</h2>
+		<table cellpadding="10">
+			<thead>
+				<tr>
+					<th>Product ID</th>
+					<th>Name</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Total</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product: ${allProducts}">
+					<td th:text="${product.id}" />
+					<td th:text="${product.name}" />
+					<td th:text="${product.quantity}" />
+					<td th:text="'$' + ${product.price}" />
+					<td th:text="'$' + ${product.quantity} * ${product.price}" />
+					<td sec:authorize="hasRole('ROLE_ADMIN')">
+						<a th:href="@{'/edit_admin/' + ${product.id}}">Edit</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:href="@{'/delete/' + ${product.id}}">Delete</a>
+					</td>
+					<td sec:authorize="hasRole('ROLE_USER')">
+						<a th:href="@{'/edit_user/' + ${product.id}}">Edit</a>
+					</td>
+					<br><br>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>Total:</td>
+					<td th:text="'$'+${totalPrice}" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2>
+			<a href="/new">
+				<button>Add New Product</button>
+			</a>
+		</h2>
+	</div>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
+	<meta charset="ISO-8859-1">
+	<title>Product Lists</title>
+</head>
+
+<body>
+
+	<a href="/logout"><button type="button">Logout</button></a>
+	<div align="center">
+		<h1>Welcome <span sec:authentication="name"></span></h1><br>
+		Role: <span sec:authentication="principal.authorities"></span><br>
+		Click <a href="/products">here </a> to show product list.<br><br><br>
+	</div>
+
+</body>
+
+</html>
