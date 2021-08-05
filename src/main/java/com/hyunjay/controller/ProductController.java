@@ -31,7 +31,7 @@ import com.hyunjay.service.ProductService;
 public class ProductController {
 
 	@Autowired
-	ProductService ps;
+	private ProductService ps;
 	
 	@GetMapping("/")
 	public ModelAndView frontPage(HttpServletRequest http) {
@@ -41,6 +41,7 @@ public class ProductController {
 		mav.addObject(username);
 		return mav;
 	}
+	
 	@GetMapping("/products")
 	public String getAllProducts(Model model) {
 		List<Product> products = ps.getAllProducts();
